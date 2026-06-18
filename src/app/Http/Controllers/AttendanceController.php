@@ -134,6 +134,39 @@ public function monthly()
     );
 }
 
+public function exportCsv()
+{
+    $attendances = Attendance::where('user_id', Auth::id())
+        ->orderBy('work_date', 'desc')
+        ->get();
+
+    $filename = 'attendance.csv';
+
+    $headers = [
+        'Content-Type' => 'text/csv',
+        'Content-Disposition' => "attachment; filename={$filename}",
+    ];
+
+    $callback = function () use ($attendances) {
+        $file = fopen('php://output', 'w');
+
+        fputcsv($file, ['日付', '出勤', '退勤', '休憩時間(分)', '勤務時間(分)']);
+
+        foreach ($attendances as $attendance) {
+            fputcsv($file, [
+                $attendance->work_date,
+                $attendance->clock_in,
+                $attendance->clock_out,
+                $attendance->break_minutes,
+                $attendance->work_minutes,
+            ]);
+        }
+
+        fclose($file);
+    };
+
+    return response()->stream($callback, 200, $headers);
+}
 
 
 }

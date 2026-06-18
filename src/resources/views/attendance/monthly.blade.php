@@ -15,6 +15,11 @@
     </a>
 </div>
 
+<a href="{{ route('attendance.exportCsv') }}"
+   class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">
+    CSV出力
+</a>
+
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
 
     <div class="bg-blue-50 rounded-xl p-4">

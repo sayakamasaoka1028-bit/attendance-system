@@ -18,22 +18,30 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
 Route::middleware(['auth'])->group(function () {
-    Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
-    Route::post('/attendance/clockin', [AttendanceController::class, 'clockIn'])->name('attendance.clockin');
+
+    Route::get('/attendance', [AttendanceController::class, 'index'])
+        ->name('attendance.index');
+
+    Route::post('/attendance/clockin', [AttendanceController::class, 'clockIn'])
+        ->name('attendance.clockin');
+
+    Route::post('/attendance/clockout', [AttendanceController::class, 'clockOut'])
+        ->name('attendance.clockout');
+
+    Route::post('/attendance/break-start', [AttendanceController::class, 'breakStart'])
+        ->name('attendance.breakStart');
+
+    Route::post('/attendance/break-end', [AttendanceController::class, 'breakEnd'])
+        ->name('attendance.breakEnd');
+
+    Route::get('/attendance/monthly', [AttendanceController::class, 'monthly'])
+        ->name('attendance.monthly');
+
+    Route::get('/attendance/export-csv', [AttendanceController::class, 'exportCsv'])
+        ->name('attendance.exportCsv');
+
 });
 
-Route::post('/attendance/clockout', [AttendanceController::class, 'clockOut'])
-    ->name('attendance.clockout');
-
-Route::post('/attendance/break-start', [AttendanceController::class, 'breakStart'])
-    ->name('attendance.breakStart');
-
-Route::post('/attendance/break-end', [AttendanceController::class, 'breakEnd'])
-    ->name('attendance.breakEnd');
-
-Route::get('/attendance/monthly', [AttendanceController::class, 'monthly'])
-    ->name('attendance.monthly');
 
 require __DIR__.'/auth.php';
