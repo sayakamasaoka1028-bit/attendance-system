@@ -19,7 +19,12 @@
                 @foreach($users as $user)
 
 <tr>
-    <td class="border p-2">{{ $user->name }}</td>
+<td class="border p-2">
+    <a href="{{ route('attendance.adminUser', $user) }}" class="text-blue-600 underline">
+        {{ $user->name }}
+    </a>
+</td>
+
     <td class="border p-2">{{ $user->email }}</td>
 
     <td class="border p-2">

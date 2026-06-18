@@ -185,4 +185,13 @@ public function admin()
     return view('attendance.admin', compact('users'));
 }	
 
+public function adminUser(\App\Models\User $user)
+{
+    $attendances = $user->attendances()
+        ->orderBy('work_date', 'desc')
+        ->get();
+
+    return view('attendance.admin_user', compact('user', 'attendances'));
+}
+
 }

@@ -44,6 +44,9 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/attendance/admin', [AttendanceController::class, 'admin'])
     ->name('attendance.admin');
 
+Route::get('/attendance/admin/users/{user}', [AttendanceController::class, 'adminUser'])
+    ->name('attendance.adminUser');
+
 });
 
 
