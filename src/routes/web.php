@@ -41,6 +41,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/attendance/export-csv', [AttendanceController::class, 'exportCsv'])
         ->name('attendance.exportCsv');
 
+Route::get('/attendance/admin', [AttendanceController::class, 'admin'])
+    ->name('attendance.admin');
+
 });
 
 

@@ -178,5 +178,11 @@ public function exportCsv()
     return response()->stream($callback, 200, $headers);
 }
 
+public function admin()
+{
+    $users = \App\Models\User::all();
+
+    return view('attendance.admin', compact('users'));
+}	
 
 }
