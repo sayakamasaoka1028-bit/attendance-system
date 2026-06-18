@@ -9,15 +9,28 @@
                 <tr class="bg-gray-100">
                     <th class="border p-2">名前</th>
                     <th class="border p-2">メール</th>
+<th class="border p-2">勤務日数</th>
+<th class="border p-2">勤務時間</th>
+
                 </tr>
             </thead>
 
             <tbody>
                 @foreach($users as $user)
-                    <tr>
-                        <td class="border p-2">{{ $user->name }}</td>
-                        <td class="border p-2">{{ $user->email }}</td>
-                    </tr>
+
+<tr>
+    <td class="border p-2">{{ $user->name }}</td>
+    <td class="border p-2">{{ $user->email }}</td>
+
+    <td class="border p-2">
+        {{ $user->attendances->count() }}日
+    </td>
+
+    <td class="border p-2">
+        {{ floor($user->attendances->sum('work_minutes') / 60) }}時間
+        {{ $user->attendances->sum('work_minutes') % 60 }}分
+    </td>
+</tr>
                 @endforeach
             </tbody>
         </table>

@@ -46,4 +46,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+public function attendances()
+{
+    return $this->hasMany(\App\Models\Attendance::class);
+}
 }
