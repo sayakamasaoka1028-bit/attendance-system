@@ -8,6 +8,19 @@
                     勤怠一覧
                 </h1>
 
+<form method="GET" action="{{ route('attendance.monthly') }}" class="mb-6 flex gap-3">
+    <input type="month"
+           name="month"
+           value="{{ $month }}"
+           class="border-gray-300 rounded-lg shadow-sm">
+
+    <button type="submit"
+            class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg">
+        表示
+    </button>
+</form>
+
+
 <div class="mb-6 text-right">
     <a href="{{ route('attendance.index') }}"
        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">

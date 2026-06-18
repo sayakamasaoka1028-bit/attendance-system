@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Attendance;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -111,16 +112,18 @@ public function breakEnd()
 }
 
 
-public function monthly()
+public function monthly(Request $request)
 {
+    $month = $request->input('month', now()->format('Y-m'));
+
     $attendances = Attendance::where('user_id', Auth::id())
+        ->whereYear('work_date', substr($month, 0, 4))
+        ->whereMonth('work_date', substr($month, 5, 2))
         ->orderBy('work_date', 'desc')
         ->get();
 
     $workDays = $attendances->count();
-
     $totalWorkMinutes = $attendances->sum('work_minutes');
-
     $totalBreakMinutes = $attendances->sum('break_minutes');
 
     return view(
@@ -129,10 +132,17 @@ public function monthly()
             'attendances',
             'workDays',
             'totalWorkMinutes',
-            'totalBreakMinutes'
+            'totalBreakMinutes',
+            'month'
         )
     );
 }
+
+
+
+
+
+
 
 public function exportCsv()
 {
