@@ -194,4 +194,32 @@ public function adminUser(\App\Models\User $user)
     return view('attendance.admin_user', compact('user', 'attendances'));
 }
 
+public function edit(\App\Models\Attendance $attendance)
+{
+    return view('attendance.edit', compact('attendance'));
+}
+
+public function update(Request $request, \App\Models\Attendance $attendance)
+{
+    $clockIn = \Carbon\Carbon::parse($request->clock_in);
+    $clockOut = \Carbon\Carbon::parse($request->clock_out);
+    $breakMinutes = (int) $request->break_minutes;
+
+    $workMinutes = $clockIn->diffInMinutes($clockOut) - $breakMinutes;
+
+    if ($workMinutes < 0) {
+        $workMinutes = 0;
+    }
+
+    $attendance->update([
+        'clock_in' => $request->clock_in,
+        'clock_out' => $request->clock_out,
+        'break_minutes' => $breakMinutes,
+        'work_minutes' => $workMinutes,
+    ]);
+
+    return redirect()->route('attendance.adminUser', $attendance->user_id);
+}
+
+
 }

@@ -47,6 +47,18 @@ Route::get('/attendance/admin', [AttendanceController::class, 'admin'])
 Route::get('/attendance/admin/users/{user}', [AttendanceController::class, 'adminUser'])
     ->name('attendance.adminUser');
 
+Route::get(
+    '/attendance/admin/edit/{attendance}',
+    [AttendanceController::class, 'edit']
+)->name('attendance.edit');
+
+Route::post(
+    '/attendance/admin/update/{attendance}',
+    [AttendanceController::class, 'update']
+)->name('attendance.update');
+
+
+
 });
 
 

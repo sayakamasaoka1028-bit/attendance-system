@@ -16,6 +16,7 @@
                     <th class="border p-2">退勤</th>
                     <th class="border p-2">休憩</th>
                     <th class="border p-2">勤務</th>
+<th class="border p-2">編集</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,7 +30,14 @@
                             {{ floor($attendance->work_minutes / 60) }}時間
                             {{ $attendance->work_minutes % 60 }}分
                         </td>
-                    </tr>
+<td class="border p-2">
+    <a href="{{ route('attendance.edit', $attendance) }}"
+       class="text-blue-600 underline">
+        編集
+    </a>
+</td>                    
+
+</tr>
                 @endforeach
             </tbody>
         </table>
